@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+    <!-- HEADER INICIO -->
+    <header class="bg-sky-700">
+        <!--  -->
+        <nav class="flex items-center justify-between p-6" aria-label="Global">
+          <div class="flex lg:flex-1">
+            <a href="#" class="-m-1.5 p-1.5">
+              <span class="sr-only">Your Company</span>
+              <img class="h-10 w-auto" src="/static/marvel.svg" alt="logo-marvel">
+            </a>
+          </div>
+          <div class="flex lg:hidden">
+            <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+              <span class="sr-only">Open main menu</span>
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>
+          </div>
+          <div class="hidden lg:flex lg:gap-x-12">
+            <a href="#" class="text-sm font-semibold leading-6 text-white">Home</a>
+            <a href="#" class="text-sm font-semibold leading-6 text-white">Heroes</a>
+            <a href="#" class="text-sm font-semibold leading-6 text-white">About Us</a>
+          </div>
+          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a href="#" class="text-sm font-semibold leading-6 text-white">Log in <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </nav>  
+      </header>
+    <!-- HEADER FIN -->
+
+
+    <!-- INICIO READ -->
+    <div class="text-center mt-6">
+      <h2 class="text-2xl font-bold pt-4 pb-2">Heroes de Marvel</h2>
+    </div>
+
+    {% for heroe in heroes %}
+        <div class="w-1/3 p-4 mx-auto">
+            <div class="bg-gray-200 rounded-lg shadow-lg">
+                <div class="p-4 flex flex-col items   -center">
+                    <img class="mt-4" src="{{heroe.foto}}" alt="Foto" > 
+                    <h2 class="mt-4 text-2xl font-bold text-gray-800">{{ heroe.nombre }}</h2>
+                    <p class="mt-2 text-gray-600 italic"><span class="font-bold not-italic">Apodo:</span> "{{ heroe.apodo }}"<span class="font-bold not-italic"> - Edad:</span> {{ heroe.edad }}</p>
+                    <p class="mt-4 text-gray-600"><span class="font-bold not-italic">Detalles:</span> {{ heroe.detalles }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <!-- FIN READ -->
+
+<!-- INICIO CREATE -->
+<div class="text-center mt-6">
+  <h2 class="text-2xl font-bold pt-4 pb-2">Agrega un Nuevo Héroe de Marvel</h2>
+</div>
+
+<!-- enctype="multipart/form-data" se utiliza en un formulario HTML cuando se espera que los usuarios 
+  carguen archivos binarios, como imágenes o archivos de audio, y garantiza que estos archivos se envíen 
+  correctamente al servidor en un formato adecuado. -->
+<form action="{{ url_for('crear') }}" method="post" enctype="multipart/form-data" class="my-4">
+  <div class="w-1/2 mx-auto bg-gray-200 p-4 rounded-lg shadow-lg">
+      <div class="p-4">
+          <input name='nombre' type="text" placeholder="Nombre del Héroe" class="w-full py-2 px-3 rounded border border-gray-300">
+          <input name='apodo' type="text" placeholder="Apodo del Héroe" class="w-full mt-2 py-2 px-3 rounded border border-gray-300">
+          <input name='edad' type="number" placeholder="Edad del Héroe" class="w-full mt-2 py-2 px-3 rounded border border-gray-300">
+          <textarea name='detalles' placeholder="Detalles del Héroe" class="w-full mt-2 py-2 px-3 rounded border border-gray-300"></textarea>
+          <input name='foto' type="file" class="w-full mt-2 py-2 px-3 rounded border border-gray-300">
+      </div>
+      <div class="p-4 text-center">
+          <button type="submit" class="text-sky-600 font-bold py-2 px-4 rounded bg-white hover:bg-sky-100 border border-sky-600">
+              Agregar Héroe
+          </button>
+      </div>
+  </div>
+</form>
+<!-- FIN CREATE -->
+
+    
+</body>
+</html>
